@@ -4,6 +4,7 @@
 
 html, body
   font-size: 16px
+  height: 100%
   &.flex-footer
     height: 100%
   &.slidebars
@@ -40,17 +41,16 @@ body
   color: $main_txt_color
   -webkit-tap-highlight-color: transparent
   //внешний вид скроллбара
-  scrollbar-base-color: $main_color
+  scrollbar-base-color: $scroll_color
   //для IE
-  scrollbar-arrow-color: $main_color
-  //для IE
+  scrollbar-arrow-color: $scroll_color
   //внешний вид скроллбара для -webkit- остальное тут https://poselab.com/en/blog/custom-scrollbars-in-webkit/
   &::-webkit-scrollbar
-    width: 12px
+    width: 20px
   &::-webkit-scrollbar-thumb
-    background-color: $main_color
+    background-color: $scroll_color
     &:hover
-      background-color: darken($main_color, 10%)
+      background-color: darken($scroll_color, 10%)
   &::-webkit-scrollbar-track-piece
     background-color: transparent
 //-webkit-font-smoothing: antialiased
@@ -76,11 +76,6 @@ li
   display: block
   background: url('../img/modal_close.png') 0 0 no-repeat
 
-label
-  display: inline-block
-  max-width: 100%
-  margin-bottom: 5px
-  font-weight: 700
 
 *::-webkit-input-placeholder
   color: #666
@@ -106,4 +101,5 @@ body input:required:valid,
 body textarea:required:valid
   color: #666
 
+//MEDIA
 @import "media"
