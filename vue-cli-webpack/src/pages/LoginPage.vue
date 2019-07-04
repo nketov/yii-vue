@@ -39,7 +39,7 @@
             </div>
             <div class="form-group">
                 <div class="col-lg-offset-1 col-lg-11">
-                    <button type="button" name="login-button" class="btn btn-primary" @click="attemptLogin">Login
+                    <button type="button" name="login-button" class="main_btn" @click="attemptLogin">Login
                     </button>
                 </div>
             </div>

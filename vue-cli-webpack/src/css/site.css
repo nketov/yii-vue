@@ -1,0 +1,43 @@
+
+.slide-enter {
+
+}
+
+.slide-enter-active {
+    animation: slideIn .75s;
+}
+
+.slide-enter-to {
+
+}
+
+.slide-leave {
+
+}
+
+.slide-leave-active {
+    animation: slideOut .75s;
+}
+
+.slide-leave-to {
+
+}
+
+@keyframes slideIn {
+    from {
+        transform: rotateY(90deg);
+    }
+    to {
+        transform: rotateY(0deg);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: rotateY(0deg);
+    }
+    to {
+        transform: rotateY(90deg);
+    }
+}
+

@@ -1,9 +1,10 @@
 <template>
     <div>
-        <h1>About page</h1>
+        <h2>About page</h2>
         <p>
             This is the About page.
         </p>
+        <h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2><h2>About page</h2>
 
     </div>
 </template>

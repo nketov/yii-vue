@@ -1,17 +1,18 @@
 import VueRouter from 'vue-router';
 
-
-import LandingPage from './pages/LandingPage.vue';
 import AboutPage from './pages/AboutPage.vue';
 import LoginPage from './pages/LoginPage.vue';
-import MyPage from './pages/MyPage.vue';
+import ProductsList from './pages/ProductsList';
+import Product from './pages/Product';
+import Cart from './pages/Cart';
+import E404 from './pages/E404';
 
+import {store} from './store';
 
 let routes = [
     {
-        path: '/',
-        component: LandingPage,
-        name: 'landing'
+        path: '',
+        redirect: {name: 'about'}
     },
     {
         path: '/about',
@@ -24,10 +25,28 @@ let routes = [
         name: 'login'
     },
     {
-        path: '/my-page',
-        component: MyPage,
-        name: 'MyPaGe'
+        name: 'products',
+        path: '/products',
+        component: ProductsList,
+        beforeEnter(from, to, next){
+            store.dispatch('products/loadItems');
+            next();
+        }
+    },
+    {
+        path: '/products/:id',
+        component: Product
+    },
+    {
+        path: '/cart',
+        component: Cart
+    },
+    {
+        path: '*',
+        component: E404
     }
+
+
 ];
 
 let router = new VueRouter({
