@@ -1,105 +1,105 @@
 @import "vars"
 
-@import "./font-awesome.min.css"
+//@import "./font-awesome.min.css"
 
-html, body
-  font-size: 16px
-  height: 100%
-  &.flex-footer
-    height: 100%
-  &.slidebars
-    width: 100%
-    overflow: hidden !important
-
-.wrap
-  min-height: 100%
-  height: auto
-  margin: 0 auto -60px
-  padding: 0 0 60px
-  >.container
-    padding: 70px 15px 20px
-
-footer
-  height: 60px
-  background-color: #555
-  border-top: 1px solid #ddd
-  padding-top: 20px
-
-h2
-  font-family: $font_RobotoBold
-  font-size: 47px
-  color: #000000
-  text-align: center
-
-body
-  margin: 0
-  min-width: 320px
-  position: relative
-  line-height: 1.6
-  font-family: $font_RobotoRegular
-  overflow-x: hidden
-  color: $main_txt_color
-  -webkit-tap-highlight-color: transparent
-  //внешний вид скроллбара
-  scrollbar-base-color: $scroll_color
-  //для IE
-  scrollbar-arrow-color: $scroll_color
-  //внешний вид скроллбара для -webkit- остальное тут https://poselab.com/en/blog/custom-scrollbars-in-webkit/
-  &::-webkit-scrollbar
-    width: 20px
-  &::-webkit-scrollbar-thumb
-    background-color: $scroll_color
-    &:hover
-      background-color: darken($scroll_color, 10%)
-  &::-webkit-scrollbar-track-piece
-    background-color: transparent
-//-webkit-font-smoothing: antialiased
-//-moz-osx-font-smoothing: grayscale
-
-
-p, ul
-  padding: 0
-  margin: 0
-
-li
-  list-style: none
-
-.hidden
-  display: none
-
-.close
-  position: absolute
-  right: -38px
-  top: -36px
-  width: 25px
-  height: 26px
-  display: block
-  background: url('../img/modal_close.png') 0 0 no-repeat
-
-
-*::-webkit-input-placeholder
-  color: #666
-  opacity: 1
-
-*:-moz-placeholder
-  color: #666
-  opacity: 1
-
-*::-moz-placeholder
-  color: #666
-  opacity: 1
-
-*:-ms-input-placeholder
-  color: #666
-  opacity: 1
-
-body input:focus:required:invalid,
-body textarea:focus:required:invalid
-  color: #666
-
-body input:required:valid,
-body textarea:required:valid
-  color: #666
+//html, body
+//  font-size: 16px
+//  height: 100%
+//  &.flex-footer
+//    height: 100%
+//  &.slidebars
+//    width: 100%
+//    overflow: hidden !important
+//
+//.wrap
+//  min-height: 100%
+//  height: auto
+//  margin: 0 auto -60px
+//  padding: 0 0 60px
+//  >.container
+//    padding: 70px 15px 20px
+//
+//footer
+//  height: 60px
+//  background-color: #555
+//  border-top: 1px solid #ddd
+//  padding-top: 20px
+//
+//h2
+//  font-family: $font_RobotoBold
+//  font-size: 47px
+//  color: #000000
+//  text-align: center
+//
+//body
+//  margin: 0
+//  min-width: 320px
+//  position: relative
+//  line-height: 1.6
+//  font-family: $font_RobotoRegular
+//  overflow-x: hidden
+//  color: $main_txt_color
+//  -webkit-tap-highlight-color: transparent
+//  //внешний вид скроллбара
+//  scrollbar-base-color: $scroll_color
+//  //для IE
+//  scrollbar-arrow-color: $scroll_color
+//  //внешний вид скроллбара для -webkit- остальное тут https://poselab.com/en/blog/custom-scrollbars-in-webkit/
+//  &::-webkit-scrollbar
+//    width: 20px
+//  &::-webkit-scrollbar-thumb
+//    background-color: $scroll_color
+//    &:hover
+//      background-color: darken($scroll_color, 10%)
+//  &::-webkit-scrollbar-track-piece
+//    background-color: transparent
+////-webkit-font-smoothing: antialiased
+////-moz-osx-font-smoothing: grayscale
+//
+//
+//p, ul
+//  padding: 0
+//  margin: 0
+//
+//li
+//  list-style: none
+//
+//.hidden
+//  display: none
+//
+//.close
+//  position: absolute
+//  right: -38px
+//  top: -36px
+//  width: 25px
+//  height: 26px
+//  display: block
+//  background: url('../img/modal_close.png') 0 0 no-repeat
+//
+//
+//*::-webkit-input-placeholder
+//  color: #666
+//  opacity: 1
+//
+//*:-moz-placeholder
+//  color: #666
+//  opacity: 1
+//
+//*::-moz-placeholder
+//  color: #666
+//  opacity: 1
+//
+//*:-ms-input-placeholder
+//  color: #666
+//  opacity: 1
+//
+//body input:focus:required:invalid,
+//body textarea:focus:required:invalid
+//  color: #666
+//
+//body input:required:valid,
+//body textarea:required:valid
+//  color: #666
 
 //MEDIA
 @import "media"

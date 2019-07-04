@@ -17,11 +17,14 @@ window.app = new Vue({
     router,
     store,
     data: {
-        //
+        drawer:false
     },
     computed: {
         ...mapGetters('menu', {
             menuList: 'items'
+        }),
+        ...mapGetters('menu', {
+            footerMenu: 'footer'
         }),
         ...mapGetters('cart', {
             lengthInCart: 'cnt'

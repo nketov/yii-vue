@@ -1,7 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-
 Vue.use(VueRouter);
+import Vuetify from 'vuetify'
+Vue.use(Vuetify);
+import 'vuetify/dist/vuetify.min.css'
+
+
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

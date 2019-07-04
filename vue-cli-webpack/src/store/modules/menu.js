@@ -1,7 +1,7 @@
 export default {
-	namespaced: true,
-	state: {
-		items: [
+    namespaced: true,
+    state: {
+        items: [
             {
                 url: '/login',
                 text: 'Login'
@@ -10,23 +10,34 @@ export default {
                 url: '/about',
                 text: 'About'
             },
-			{
-				url: '/products',
-				text: 'Products List'
-			},
-			{
-				url: '/cart',
-				text: 'Your Cart'
-			},
-			{
-				url: '/checkout',
-				text: 'Order Now'
-			}
-		]
-	},
-	getters: {
-		items(state){
-			return state.items;
-		}
-	}
+            {
+                url: '/products',
+                text: 'Products List'
+            },
+            {
+                url: '/cart',
+                text: 'Your Cart'
+            },
+            {
+                url: '/checkout',
+                text: 'Order Now'
+            }
+        ],
+        footer: [
+            'Home',
+            'About Us',
+            'Team',
+            'Services',
+            'Blog',
+            'Contact Us'
+        ]
+    },
+    getters: {
+        items(state) {
+            return state.items;
+        },
+        footer(state) {
+            return state.footer;
+        }
+    }
 };
