@@ -64,6 +64,8 @@
 </template>
 
 <script>
+    import {mapActions} from 'vuex';
+
     export default {
         data() {
             return {
@@ -85,6 +87,9 @@
             }
         },
         methods: {
+            ...mapActions('user', {
+                initUser: 'initUser'
+            }),
             attemptLogin() {
                 if (this.$refs.form.validate()) {
                     this.snackbar = true;
@@ -100,14 +105,14 @@
                     }).then((response) => {
                         this.refreshCSRFToken(response.data.token);
                         if (response.data.result == 'success') {
-                            this.is_logged_in = true;
-                            this.current_user = response.data.user_id;
+                            this.initUser();
                         } else {
                             this.server_error = response.data.messages.password;
                         }
                     })
                 }
             },
+
             clearError() {
                 this.server_error = '';
             },

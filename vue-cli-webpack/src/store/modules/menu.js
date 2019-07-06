@@ -3,11 +3,6 @@ export default {
     state: {
         items: [
             {
-                url: '/login',
-                text: 'Вход',
-                icon: 'input'
-            },
-            {
                 url: '/about',
                 text: 'О нас',
                 icon: 'info'
@@ -57,4 +52,3 @@ export default {
         }
     }
 }
-;

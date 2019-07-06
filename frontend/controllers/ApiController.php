@@ -52,7 +52,7 @@ class ApiController extends Controller
      */
     public function actionLogin()
     {
-        $raw_data = json_decode(Yii::$app->request->getRawBody(),true);
+        $raw_data = json_decode(Yii::$app->request->getRawBody(), true);
         $model = new LoginForm();
         $model->load($raw_data, '');
         if ($model->login()) {
@@ -60,6 +60,19 @@ class ApiController extends Controller
         } else {
             return ['result' => 'error', 'messages' => $model->getFirstErrors()];
         }
+    }
+
+    public function actionCurrentUserInfo()
+    {
+        $user = [];
+        if (!Yii::$app->user->isGuest) {
+            $user = [
+                'id' => Yii::$app->user->identity->id,
+                'email' => Yii::$app->user->identity->email,
+                'avatar' => Yii::$app->user->identity->avatar ?? ''
+            ];
+        }
+        return $user;
     }
 
     public function actionTest()

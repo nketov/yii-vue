@@ -35,14 +35,13 @@ export default {
         loadItems(store) {
             store.commit('clearItems');
 
-
             axios({
                 url: '/api/test'
             }).then((response) => {
                 console.log(response.data);
                 store.commit('loadItems', response.data);
             }).catch(error => console.log(error));
-            ;
+
 
         }
     }

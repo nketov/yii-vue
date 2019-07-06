@@ -20,6 +20,9 @@ window.app = new Vue({
         drawer:null,
         dark:true
     },
+    mounted(){
+        store.dispatch('user/initUser');
+    },
     computed: {
         ...mapGetters('user', {
             user: 'user'
@@ -32,7 +35,7 @@ window.app = new Vue({
         }),
         ...mapGetters('cart', {
             lengthInCart: 'cnt'
-        })
+        }),
     },
     methods: {
         isActiveMenu(path) {

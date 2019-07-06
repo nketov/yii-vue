@@ -16,12 +16,16 @@ export default {
             state.user = [];
         },
         initUser(state, data) {
-            state.user = window._PHP_user;
+            state.user = data;
         }
     },
     actions: {
         initUser(store) {
-            store.commit('initUser');
+            axios({
+                url: '/api/current-user-info'
+            }).then((response) => {
+                store.commit('initUser', response.data);
+            }).catch(error => console.log(error));
         }
     }
 };

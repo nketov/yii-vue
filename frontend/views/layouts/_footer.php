@@ -9,9 +9,6 @@
             :grey="!dark"
     >
 
-
-
-
         <v-btn
                 v-for="link in footerMenu.items"
                 :key="link"

@@ -20,14 +20,6 @@ AppAsset::register($this);
     <?php $this->head() ?>
 </head>
 <body>
-<?php
-$_yii_user = (object)[];
-if (!Yii::$app->user->isGuest) {
-    $_yii_user = (object)array('id' => Yii::$app->user->identity->id, 'email' => Yii::$app->user->identity->email);
-} ?>
-<script>
-    window._PHP_user = <?= json_encode($_yii_user) ?>  ;
-</script>
 <?php $this->beginBody() ?>
 <?= $this->render('app.php', compact('siteContent')) ?>
 <?php $this->endBody() ?>
