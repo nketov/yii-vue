@@ -1,11 +1,10 @@
 import router from './routes.js';
 import {store} from './store';
 
+require('./bootstrap');
+
 import css from './css/site.css';
 import sass from './css/main.sass';
-
-
-require('./bootstrap');
 
 window.Vue = require('vue');
 
@@ -16,10 +15,15 @@ window.app = new Vue({
     el: '#app',
     router,
     store,
+    propsData: { a: String },
     data: {
-        drawer:false
+        drawer:null,
+        dark:true
     },
     computed: {
+        ...mapGetters('user', {
+            user: 'user'
+        }),
         ...mapGetters('menu', {
             menuList: 'items'
         }),

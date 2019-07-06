@@ -4,6 +4,7 @@
 
 /* @var $content string */
 
+use common\models\Content;
 use frontend\assets\AppAsset;
 
 AppAsset::register($this);
@@ -12,35 +13,24 @@ AppAsset::register($this);
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 <head>
-    <?php $siteContent=['CONTENT']; ?>
+    <?php $siteContent = Content::findOne(1); ?>
     <?= $this->render('_head.php', compact('siteContent')) ?>
-
-
-
-    <!--    --><?//= $this->render('_head.php', compact('siteContent')) ?>
     <?php $this->registerCsrfMetaTags() ?>
-    <?php $this->head() ?>
     <link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons' rel="stylesheet">
-
+    <?php $this->head() ?>
 </head>
 <body>
+<?php
+$_yii_user = (object)[];
+if (!Yii::$app->user->isGuest) {
+    $_yii_user = (object)array('id' => Yii::$app->user->identity->id, 'email' => Yii::$app->user->identity->email);
+} ?>
+<script>
+    window._PHP_user = <?= json_encode($_yii_user) ?>  ;
+</script>
 <?php $this->beginBody() ?>
-
-<?php $siteContent=['CONTENT']; ?>
 <?= $this->render('app.php', compact('siteContent')) ?>
-
-
-<!--<footer class="footer">-->
-<!--    <div class="container">-->
-<!--        <p class="pull-left">&copy; My Company --><?//= date('Y') ?><!--</p>-->
-<!---->
-<!--        <p class="pull-right">Powered by <a href="http://www.yiiframework.com/" rel="external">Yii Framework</a></p>-->
-<!--    </div>-->
-<!--</footer>-->
-
 <?php $this->endBody() ?>
 </body>
-
-
 </html>
 <?php $this->endPage() ?>

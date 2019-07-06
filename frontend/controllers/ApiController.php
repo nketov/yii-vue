@@ -6,7 +6,7 @@ use Yii;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
-use app\models\LoginForm;
+use common\models\LoginForm;
 
 class ApiController extends Controller
 {
@@ -52,8 +52,9 @@ class ApiController extends Controller
      */
     public function actionLogin()
     {
+        $raw_data = json_decode(Yii::$app->request->getRawBody(),true);
         $model = new LoginForm();
-        $model->load(Yii::$app->request->post(), '');
+        $model->load($raw_data, '');
         if ($model->login()) {
             return ['result' => 'success', 'user_id' => Yii::$app->user->getId()];
         } else {

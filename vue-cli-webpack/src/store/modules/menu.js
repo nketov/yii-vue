@@ -4,33 +4,49 @@ export default {
         items: [
             {
                 url: '/login',
-                text: 'Login'
+                text: 'Вход',
+                icon: 'input'
             },
             {
                 url: '/about',
-                text: 'About'
+                text: 'О нас',
+                icon: 'info'
             },
             {
                 url: '/products',
-                text: 'Products List'
+                text: 'Магазин',
+                icon: 'view_list'
             },
             {
                 url: '/cart',
-                text: 'Your Cart'
+                text: 'Корзина',
+                icon: 'shopping_cart'
             },
             {
                 url: '/checkout',
-                text: 'Order Now'
+                text: 'Заказать',
+                icon: 'done_outline'
             }
         ],
-        footer: [
-            'Home',
-            'About Us',
-            'Team',
-            'Services',
-            'Blog',
-            'Contact Us'
-        ]
+        footer: {
+            items:
+                [
+                    'Home',
+                    'About Us',
+                    'Team',
+                    'Services',
+                    'Blog',
+                    'Contact Us'
+                ],
+            icons: [
+                'fa fa-facebook',
+                'fa fa-twitter',
+                'fa fa-google-plus',
+                'fa fa-linkedin',
+                'fa fa-instagram'
+            ]
+
+        }
     },
     getters: {
         items(state) {
@@ -40,4 +56,5 @@ export default {
             return state.footer;
         }
     }
-};
+}
+;

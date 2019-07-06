@@ -1,55 +1,66 @@
 <template>
-    <div>
-
+    <v-container fluid fill-height>
         <div v-if="is_logged_in">
             <h1>User was successfully logged in. Found user id {{current_user}}</h1>
         </div>
-        <div class="form-horizontal" v-else>
-            <h1>Login page</h1>
-            <p>Please fill out the following fields to login:</p>
+        <v-layout align-center justify-center v-else>
+            <v-flex xs12 sm8 md4>
+                <v-card class="elevation-12" >
+                    <v-toolbar color="primary">
+                        <v-toolbar-title><h1>Вход</h1></v-toolbar-title>
+                    </v-toolbar>
+                    <v-card-text>
+                        Пожалуйста, заполните следующие поля для входа:
+                        <v-form
+                                ref="form"
+                                v-model="valid"
+                                lazy-validation
+                        >
+                            <v-text-field
+                                    v-model="login"
+                                    prepend-icon="email"
+                                    :rules="loginRules"
+                                    placeholder="E-mail"
+                                    @input="clearError"
+                                    required
+                            ></v-text-field>
 
-            <div class="form-group field-loginform-username required" :class="{'has-error': login_error.length != 0}">
-                <label for="loginform-username" class="col-lg-1 control-label">Username</label>
-                <div class="col-lg-3">
-                    <input type="text" id="loginform-username" v-model="login"
-                           autofocus="autofocus" aria-required="true" class="form-control"
-                           :aria-invalid="login_error.length != 0">
-                </div>
-                <div class="col-lg-8" v-if="login_error.length != 0">
-                    <p class="help-block help-block-error">{{login_error}}</p>
-                </div>
-            </div>
+                            <v-text-field
+                                    v-model="password"
+                                    prepend-icon="vpn_key"
+                                    placeholder="Пароль"
+                                    @input="clearError"
+                                    :append-icon="show ? 'visibility' : 'visibility_off'"
+                                    :rules="passwordRules"
+                                    :type="show ? 'text' : 'password'"
+                                    :error-messages="server_error"
+                                    @click:append="show = !show"
 
-            <div class="form-group field-loginform-password required"
-                 :class="{'has-error': password_error.length != 0}">
-                <label for="loginform-password" class="col-lg-1 control-label">Password</label>
-                <div class="col-lg-3">
-                    <input type="password" id="loginform-password" v-model="password" aria-required="true"
-                           class="form-control" :aria-invalid="password_error.length != 0">
-                </div>
-                <div class="col-lg-8" v-if="password_error.length != 0">
-                    <p class="help-block help-block-error ">{{password_error}}</p>
-                </div>
-            </div>
-            <div class="form-group field-loginform-rememberme">
-                <div class="col-lg-offset-1 col-lg-3">
-                    <input type="checkbox" id="loginform-rememberme" v-model="remember_me">
-                    <label for="loginform-rememberme">Remember Me</label>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-lg-offset-1 col-lg-11">
-                    <button type="button" name="login-button" class="main_btn" @click="attemptLogin">Login
-                    </button>
-                </div>
-            </div>
+                            ></v-text-field>
 
-            <div class="col-lg-offset-1" style="color:#999;">
-                You may login with <strong>admin/admin</strong> or <strong>demo/demo</strong>.<br>
-                To modify the username/password, please check out the code <code>app\models\User::$users</code>.
-            </div>
-        </div>
-    </div>
+
+                            <v-checkbox
+                                    v-model="remember_me"
+                                    label="Запомнить меня"
+                            ></v-checkbox>
+
+
+                        </v-form>
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                                :disabled="!valid"
+                                color="success"
+                                @click="attemptLogin"
+                        >
+                            Войти
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-flex>
+        </v-layout>
+    </v-container>
 </template>
 
 <script>
@@ -58,33 +69,31 @@
             return {
                 is_logged_in: false,
                 current_user: null,
-                login: '',
-                password: '',
+                valid: true,
                 remember_me: 0,
-                login_error: '',
-                password_error: ''
+                server_error: '',
+                login: '',
+                show: false,
+                loginRules: [
+                    v => !!v || 'Введите Е-mail',
+                ],
+                password: '',
+                passwordRules: [
+                    v => !!v || 'Введите пароль'
+                ],
+                headerGradient: 'to bottom, #a90329, #0f0222 ',
             }
         },
         methods: {
             attemptLogin() {
-                this.login_error = '';
-                this.password_error = '';
-
-                if (!this.login.length) {
-                    this.login_error = 'Username cannot be blank.';
-                }
-
-                if (!this.password.length) {
-                    this.password_error = 'Password cannot be blank.';
-                }
-
-                if(this.password_error.length == 0 && this.login_error.length == 0) {
+                if (this.$refs.form.validate()) {
+                    this.snackbar = true;
                     axios({
                         method: 'post',
                         url: '/api/login',
                         responseType: 'json',
                         data: {
-                            username: this.login,
+                            email: this.login,
                             password: this.password,
                             rememberMe: this.remember_me
                         }
@@ -94,15 +103,13 @@
                             this.is_logged_in = true;
                             this.current_user = response.data.user_id;
                         } else {
-                            if (response.data.messages.password) {
-                                this.password_error = response.data.messages.password;
-                            }
-                            if (response.data.messages.username) {
-                                this.login_error = response.data.messages.username;
-                            }
+                            this.server_error = response.data.messages.password;
                         }
-                })
+                    })
                 }
+            },
+            clearError() {
+                this.server_error = '';
             },
             refreshCSRFToken(token) {
                 window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token;
