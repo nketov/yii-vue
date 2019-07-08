@@ -1,6 +1,7 @@
 import router from './routes.js';
 import {store} from './store';
 
+
 require('./bootstrap');
 
 import css from './css/site.css';
@@ -17,8 +18,7 @@ window.app = new Vue({
     store,
     propsData: { a: String },
     data: {
-        drawer:null,
-        dark:true
+        drawer:null
     },
     mounted(){
         store.dispatch('user/initUser');
@@ -28,11 +28,11 @@ window.app = new Vue({
             user: 'user'
         }),
         ...mapGetters('menu', {
-            menuList: 'items'
-        }),
-        ...mapGetters('menu', {
+            preferences: 'preferences',
+            menuList: 'items',
             footerMenu: 'footer'
         }),
+
         ...mapGetters('cart', {
             lengthInCart: 'cnt'
         }),

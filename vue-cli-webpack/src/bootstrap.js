@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter);
 import Vuetify from 'vuetify'
 Vue.use(Vuetify);
+
 import 'vuetify/dist/vuetify.min.css'
 
 
@@ -30,3 +31,4 @@ if (token) {
 } else {
     console.error('CSRF token not found');
 }
+

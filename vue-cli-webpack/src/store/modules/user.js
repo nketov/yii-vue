@@ -22,7 +22,9 @@ export default {
     actions: {
         initUser(store) {
             axios({
-                url: '/api/current-user-info'
+                method:'post',
+                url: '/api/current-user-info',
+                responseType: 'json'
             }).then((response) => {
                 store.commit('initUser', response.data);
             }).catch(error => console.log(error));

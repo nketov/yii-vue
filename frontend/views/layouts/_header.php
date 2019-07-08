@@ -4,20 +4,22 @@
                      left
                      app>
     <v-list>
-        <v-toolbar flat class="transparent" v-if="user.id">
-            <v-list class="pa-0">
-                <v-list-tile avatar>
-                    <v-list-tile-avatar>
-                        <img :src="'/images/avatars/'+ user.avatar" v-if="user.avatar">
-                        <img src="/images/avatars/def_user.png" v-else>
-                    </v-list-tile-avatar>
+        <v-slide-x-transition>
+            <v-toolbar flat class="transparent" v-show="user.id" transition="slide-x-transition">
+                <v-list class="pa-0">
+                    <v-list-tile avatar>
+                        <v-list-tile-avatar>
+                            <img :src="'/images/avatars/'+ user.avatar" v-if="user.avatar">
+                            <img src="/images/avatars/def_user.png" v-else>
+                        </v-list-tile-avatar>
 
-                    <v-list-tile-content>
-                        <v-list-tile-title>{{user.email}}</v-list-tile-title>
-                    </v-list-tile-content>
-                </v-list-tile>
-            </v-list>
-        </v-toolbar>
+                        <v-list-tile-content>
+                            <v-list-tile-title>{{user.email}}</v-list-tile-title>
+                        </v-list-tile-content>
+                    </v-list-tile>
+                </v-list>
+            </v-toolbar>
+        </v-slide-x-transition>
 
         <router-link class="nav-list-link"
                      :key="101"
@@ -77,7 +79,7 @@
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-btn icon>
-        <v-icon :color="dark ? 'white': 'black'" @click="dark = !dark">wb_sunny</v-icon>
+        <v-icon :color="preferences.dark ? 'white': 'black'" @click="preferences.dark = !preferences.dark">wb_sunny</v-icon>
     </v-btn>
 
 </v-toolbar>

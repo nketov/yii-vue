@@ -1,13 +1,13 @@
 <template>
     <v-container fluid fill-height>
-        <div v-if="is_logged_in">
-            <h1>User was successfully logged in. Found user id {{current_user}}</h1>
+        <div v-if="user.id">
+            <h1>User was successfully logged in. Found user  {{user.email}}</h1>
         </div>
         <v-layout align-center justify-center v-else>
             <v-flex xs12 sm8 md4>
                 <v-card class="elevation-12" >
-                    <v-toolbar color="primary">
-                        <v-toolbar-title><h1>Вход</h1></v-toolbar-title>
+                    <v-toolbar :color="preferences.cardHeaderColor">
+                        <v-toolbar-title><h1 :style="{color: preferences.cardHeaderTextColor}">Вход</h1></v-toolbar-title>
                     </v-toolbar>
                     <v-card-text>
                         Пожалуйста, заполните следующие поля для входа:
@@ -65,12 +65,11 @@
 
 <script>
     import {mapActions} from 'vuex';
+    import {mapGetters} from 'vuex';
 
     export default {
         data() {
             return {
-                is_logged_in: false,
-                current_user: null,
                 valid: true,
                 remember_me: 0,
                 server_error: '',
@@ -86,6 +85,15 @@
                 headerGradient: 'to bottom, #a90329, #0f0222 ',
             }
         },
+        computed:{
+            ...mapGetters('user', {
+                user : 'user'
+            }),
+            ...mapGetters('menu', {
+                preferences: 'preferences'
+            })
+        },
+
         methods: {
             ...mapActions('user', {
                 initUser: 'initUser'
@@ -106,6 +114,7 @@
                         this.refreshCSRFToken(response.data.token);
                         if (response.data.result == 'success') {
                             this.initUser();
+                            this.$router.push('/');
                         } else {
                             this.server_error = response.data.messages.password;
                         }

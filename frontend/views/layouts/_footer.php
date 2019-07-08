@@ -6,7 +6,7 @@
             justify-center
             row
             wrap
-            :grey="!dark"
+            :grey="!preferences.dark"
     >
 
         <v-btn

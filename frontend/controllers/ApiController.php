@@ -20,6 +20,8 @@ class ApiController extends Controller
                 'class' => VerbFilter::class,
                 'actions' => [
                     'login' => ['post'],
+                    'logout' => ['post'],
+                    'current-user-info' => ['post'],
                 ],
             ],
         ];
@@ -75,26 +77,11 @@ class ApiController extends Controller
         return $user;
     }
 
-    public function actionTest()
+    public function actionLogout()
     {
-        return [
-            [
-                'id_product' => 10,
-                'title' => 'Iphone 5',
-                'price' => 20000
-            ],
-            [
-                'id_product' => 20,
-                'title' => 'Iphone 6',
-                'price' => 25000
-            ],
-            [
-                'id_product' => 30,
-                'title' => 'Iphone 7',
-                'price' => 30000
-            ]
-        ];
+        Yii::$app->user->logout();
 
+        return [];
     }
 
 }
