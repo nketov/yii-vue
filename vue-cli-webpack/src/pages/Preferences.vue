@@ -4,40 +4,42 @@
             <v-flex sm12 md6 xl4 :class="{'px-3': $vuetify.breakpoint.smAndUp}" py-2 m-1>
                 <v-card class="elevation-12">
                     <v-toolbar :color="preferences.cardHeaderColor">
-                        <v-toolbar-title><h5 :style="{color: preferences.cardHeaderTextColor}">Эффект смены страницы</h5>
+                        <v-toolbar-title><h5 :style="{color: preferences.cardHeaderTextColor}">Эффект смены
+                            страницы</h5>
                         </v-toolbar-title>
                     </v-toolbar>
                     <v-card-text>
-                        <v-radio-group v-model="currentPageTransition">
-                            <v-radio
-                                    v-for="(item, index) in  pageTransitionList"
-                                    :label="item"
-                                    :value="index"
-                            ></v-radio>
+                        <v-radio-group v-model="currentPageTransition" wrap>
+                                <v-radio
+                                        v-for="(item, index) in  pageTransitionList"
+                                        :label="item"
+                                        :value="index"
+                                ></v-radio>
                         </v-radio-group>
                     </v-card-text>
                 </v-card>
             </v-flex>
+            <!--<v-flex sm12 md6 xl4 :class="{'px-3': $vuetify.breakpoint.smAndUp}" py-2>-->
+            <!--<v-card class="elevation-12">-->
+            <!--<v-toolbar :color="preferences.cardHeaderColor">-->
+            <!--<v-toolbar-title><h4 :style="{color: preferences.cardHeaderTextColor}">Мой аватар</h4></v-toolbar-title>-->
+            <!--</v-toolbar>-->
+            <!--<v-card-text>-->
+            <!--<v-radio-group v-model="currentPageTransition">-->
+            <!--<v-radio-->
+            <!--v-for="(item, index) in  pageTransitionList"-->
+            <!--:label="item"-->
+            <!--:value="index"-->
+            <!--&gt;</v-radio>-->
+            <!--</v-radio-group>-->
+            <!--</v-card-text>-->
+            <!--</v-card>-->
+            <!--</v-flex>-->
             <v-flex sm12 md6 xl4 :class="{'px-3': $vuetify.breakpoint.smAndUp}" py-2>
                 <v-card class="elevation-12">
                     <v-toolbar :color="preferences.cardHeaderColor">
-                        <v-toolbar-title><h4 :style="{color: preferences.cardHeaderTextColor}">Мой аватар</h4></v-toolbar-title>
-                    </v-toolbar>
-                    <v-card-text>
-                        <v-radio-group v-model="currentPageTransition">
-                            <v-radio
-                                    v-for="(item, index) in  pageTransitionList"
-                                    :label="item"
-                                    :value="index"
-                            ></v-radio>
-                        </v-radio-group>
-                    </v-card-text>
-                </v-card>
-            </v-flex>
-            <v-flex sm12 md6 xl4 :class="{'px-3': $vuetify.breakpoint.smAndUp}" py-2>
-                <v-card class="elevation-12">
-                    <v-toolbar :color="preferences.cardHeaderColor">
-                        <v-toolbar-title><h5 :style="{color: preferences.cardHeaderTextColor}">Цвета заголовков панелей</h5>
+                        <v-toolbar-title><h5 :style="{color: preferences.cardHeaderTextColor}">Цвета заголовков
+                            панелей</h5>
                         </v-toolbar-title>
                     </v-toolbar>
                     <v-card-text :class="{'no-padding': $vuetify.breakpoint.smAndDown}">
@@ -74,8 +76,20 @@
         data() {
             return {
                 pageTransitionList: {
-                    'v-scale-transition': 'Scale',
-                    'v-fade-transition': 'Fade',
+                    'a-slide': 'Поворот',
+                    'a-slide-x': 'Переворот',
+                    'v-scale-transition': 'Размер',
+                    'v-fade-transition': 'Прозрачность',
+                    // 'v-expand-transition': 'Разворот',  //CRASH
+                    'v-scroll-x-transition': 'Скролл слева',
+                    'v-scroll-x-reverse-transition': 'Скролл справа',
+                    'v-scroll-y-transition': 'Скролл сверху',
+                    'v-scroll-y-reverse-transition': 'Скролл снизу',
+                    'v-slide-x-transition': 'Слайд слева',
+                    'v-slide-x-reverse-transition': 'Слайд справа',
+                    'v-slide-y-transition': 'Слайд сверху',
+                    'v-slide-y-reverse-transition': 'Слайд снизу',
+
                 },
                 currentCardHeaderColor: {},
                 currentPageTransition: "",
@@ -108,8 +122,8 @@
                 preferences: 'preferences'
             })
         },
-        methods:{
-            test(val){
+        methods: {
+            test(val) {
                 console.log(val);
             }
         }

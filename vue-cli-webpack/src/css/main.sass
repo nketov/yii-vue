@@ -3,80 +3,57 @@
 //@import "./font-awesome.min.css"
 
 *
- margin: 0
- padding: 0
- box-sizing: border-box
- text-decoration: none
+  margin: 0
+  padding: 0
+  box-sizing: border-box
+  text-decoration: none
 
 .no-padding
- padding: 0 !important
-
+  padding: 0 !important
 
 .nav-list-link
- &:hover
-  background: linear-gradient(to left, white, grey)
- &.router-link-exact-active
-  background: linear-gradient(to right, black, grey)
-  .v-list__tile__content,i
-   font-weight: bold
-   color: #ffa !important
+  &:hover
+    background: linear-gradient(to left, white, grey)
+  &.router-link-exact-active
+    background: linear-gradient(to right, black, grey)
+    .v-list__tile__content, i
+      font-weight: bold
+      color: #ffa !important
+
+.v-input--radio-group__input
+  flex-flow: row wrap !important
+  >div
+    width : 175px
+    padding: 5px 15px
+
+input:-internal-autofill-selected
+  border-radius: 7px
+  text-align: center !important
+  margin-bottom: 2px
 
 
 
 
-//html, body
-//  font-size: 16px
-//  height: 100%
-//  &.flex-footer
-//    height: 100%
-//  &.slidebars
-//    width: 100%
-//    overflow: hidden !important
-//
-//.wrap
-//  min-height: 100%
-//  height: auto
-//  margin: 0 auto -60px
-//  padding: 0 0 60px
-//  >.container
-//    padding: 70px 15px 20px
-//
-//footer
-//  height: 60px
-//  background-color: #555
-//  border-top: 1px solid #ddd
-//  padding-top: 20px
-//
-//h2
-//  font-family: $font_RobotoBold
-//  font-size: 47px
-//  color: #000000
-//  text-align: center
-//
-//body
-//  margin: 0
-//  min-width: 320px
-//  position: relative
-//  line-height: 1.6
-//  font-family: $font_RobotoRegular
-//  overflow-x: hidden
-//  color: $main_txt_color
-//  -webkit-tap-highlight-color: transparent
-//  //внешний вид скроллбара
-//  scrollbar-base-color: $scroll_color
-//  //для IE
-//  scrollbar-arrow-color: $scroll_color
-//  //внешний вид скроллбара для -webkit- остальное тут https://poselab.com/en/blog/custom-scrollbars-in-webkit/
-//  &::-webkit-scrollbar
-//    width: 20px
-//  &::-webkit-scrollbar-thumb
-//    background-color: $scroll_color
-//    &:hover
-//      background-color: darken($scroll_color, 10%)
-//  &::-webkit-scrollbar-track-piece
-//    background-color: transparent
-////-webkit-font-smoothing: antialiased
-////-moz-osx-font-smoothing: grayscale
+
+
+
+body
+  -webkit-tap-highlight-color: transparent
+  //внешний вид скроллбара
+  scrollbar-base-color : #222
+  //для IE
+  scrollbar-arrow-color: #222
+  //внешний вид скроллбара для -webkit- остальное тут https://poselab.com/en/blog/custom-scrollbars-in-webkit/
+  &::-webkit-scrollbar
+    width: 20px
+  &::-webkit-scrollbar-thumb
+    background-color: #222
+    &:hover
+      background-color: darken(#222, 10%)
+  &::-webkit-scrollbar-track-piece
+    background-color: transparent
+//-webkit-font-smoothing: antialiased
+//-moz-osx-font-smoothing: grayscale
 //
 //
 //p, ul

@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import AboutPage from './pages/AboutPage.vue';
 import Preferences from './pages/Preferences.vue';
 import LoginPage from './pages/LoginPage.vue';
+import RegistrationPage from './pages/RegistrationPage.vue';
 import ProductsList from './pages/ProductsList';
 import Product from './pages/Product';
 import Cart from './pages/Cart';
@@ -24,6 +25,11 @@ let routes = [
         path: '/login',
         component: LoginPage,
         name: 'login',
+    },
+    {
+        path: '/registration',
+        component: RegistrationPage,
+        name: 'registration',
     },
     {
         path: '/preferences',

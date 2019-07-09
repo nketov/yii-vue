@@ -2,7 +2,7 @@ export default {
     namespaced: true,
     state: {
         preferences: {
-            pageTransition: 'v-fade-transition',
+            pageTransition: 'a-slide-x',
             dark: true,
             cardHeaderColor : '#364777',
             cardHeaderTextColor : '#E9D61B',
@@ -10,7 +10,7 @@ export default {
         items: [
             {
                 url: '/about',
-                text: 'О нас',
+                text: 'О сайте',
                 icon: 'info'
             },
             // {
@@ -38,7 +38,7 @@ export default {
             items:
                 [
                     'Home',
-                    'About Us',
+                    'About',
                     'Team',
                     'Services',
                     'Blog',

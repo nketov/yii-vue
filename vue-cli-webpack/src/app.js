@@ -16,11 +16,11 @@ window.app = new Vue({
     el: '#app',
     router,
     store,
-    propsData: { a: String },
+    propsData: {a: String},
     data: {
-        drawer:null
+        drawer: null,
     },
-    mounted(){
+    mounted() {
         store.dispatch('user/initUser');
     },
     computed: {
@@ -38,8 +38,19 @@ window.app = new Vue({
         }),
     },
     methods: {
-        isActiveMenu(path) {
-            return window.location.pathname == path;
+        chooseTransitionComponentType(transition) {
+            if (transition.indexOf("a-") === 0) {
+                return 'transition'
+            } else {
+                return transition;
+            }
+        },
+        chooseTransitionName(transition) {
+            if (transition.indexOf("a-") === 0) {
+                return transition
+            } else {
+                return '';
+            }
         }
     }
 });

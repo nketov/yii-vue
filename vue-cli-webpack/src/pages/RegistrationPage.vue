@@ -7,10 +7,10 @@
             <v-flex xs12 sm8 md4>
                 <v-card class="elevation-12" >
                     <v-toolbar :color="preferences.cardHeaderColor">
-                        <v-toolbar-title><h1 :style="{color: preferences.cardHeaderTextColor}">Вход</h1></v-toolbar-title>
+                        <v-toolbar-title><h1 :style="{color: preferences.cardHeaderTextColor}">Регистрация</h1></v-toolbar-title>
                     </v-toolbar>
                     <v-card-text>
-                        Пожалуйста, заполните следующие поля для входа:
+                        Пожалуйста, заполните следующие поля для регистрации:
                         <v-form
                                 ref="form"
                                 v-model="valid"
@@ -22,7 +22,6 @@
                                     :rules="loginRules"
                                     placeholder="E-mail"
                                     @input="clearError"
-                                    @keyup.enter="attemptLogin"
                                     required
                             ></v-text-field>
 
@@ -31,7 +30,6 @@
                                     prepend-icon="vpn_key"
                                     placeholder="Пароль"
                                     @input="clearError"
-                                    @keyup.enter="attemptLogin"
                                     :append-icon="show ? 'visibility' : 'visibility_off'"
                                     :rules="passwordRules"
                                     :type="show ? 'text' : 'password'"
@@ -39,44 +37,25 @@
                                     @click:append="show = !show"
 
                             ></v-text-field>
+
+
+                            <v-checkbox
+                                    v-model="remember_me"
+                                    label="Запомнить меня"
+                            ></v-checkbox>
+
+
                         </v-form>
                     </v-card-text>
-                    <v-card-actions py-0>
-                        <v-spacer></v-spacer>
-                        <v-checkbox
-                                v-model="remember_me"
-                                label="Запомнить меня"
-                        ></v-checkbox>
+                    <v-card-actions>
                         <v-spacer></v-spacer>
                         <v-btn
-                                large
                                 :disabled="!valid"
                                 color="success"
-                                class="mr-3"
                                 @click="attemptLogin"
                         >
                             Войти
                         </v-btn>
-                    </v-card-actions>
-                    <v-card-actions>
-                        <p class="text-xs-left caption mx-2">Если Вы новый пользователь, то можете</p>
-                        <v-btn flat
-                                color="primary"
-                                @click="registration"
-                        >
-                            Зарегистрироваться
-                        </v-btn>
-                        <v-spacer></v-spacer>
-                    </v-card-actions>
-                    <v-card-actions>
-                        <p class="text-xs-left caption mx-2"> Если Вы забыли пароль, можете его</p>
-                        <v-btn flat
-                                color="warning"
-                                @click="registration"
-                        >
-                            Восстановить
-                        </v-btn>
-                        <v-spacer></v-spacer>
                     </v-card-actions>
                 </v-card>
             </v-flex>
@@ -141,9 +120,6 @@
                         }
                     })
                 }
-            },
-            registration() {
-                this.$router.push('/registration');
             },
 
             clearError() {
