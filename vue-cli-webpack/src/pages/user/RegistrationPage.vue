@@ -1,7 +1,7 @@
 <template>
     <v-container fluid fill-height>
         <div v-if="user.id">
-            <h1>User was successfully logged in. Found user  {{user.email}}</h1>
+            <h1>Активный пользователь {{user.email}}. Для регистрации выйдите из учётной записи.</h1>
         </div>
         <v-layout align-center justify-center v-else>
             <v-flex xs12 sm8 md4>
@@ -17,15 +17,18 @@
                                 lazy-validation
                         >
                             <v-text-field
+                                    @keyup.enter="attemptRegistration"
                                     v-model="login"
                                     prepend-icon="email"
                                     :rules="loginRules"
                                     placeholder="E-mail"
                                     @input="clearError"
+                                    :error-messages="server_error"
                                     required
                             ></v-text-field>
 
                             <v-text-field
+                                    @keyup.enter="attemptRegistration"
                                     v-model="password"
                                     prepend-icon="vpn_key"
                                     placeholder="Пароль"
@@ -33,29 +36,55 @@
                                     :append-icon="show ? 'visibility' : 'visibility_off'"
                                     :rules="passwordRules"
                                     :type="show ? 'text' : 'password'"
-                                    :error-messages="server_error"
                                     @click:append="show = !show"
 
                             ></v-text-field>
 
-
-                            <v-checkbox
-                                    v-model="remember_me"
-                                    label="Запомнить меня"
-                            ></v-checkbox>
-
+                            <v-text-field
+                                    @keyup.enter="attemptRegistration"
+                                    mask="+38(###) ### ## ##"
+                                    v-model="phone"
+                                    prepend-icon="phone"
+                                    :rules="phoneRules"
+                                    placeholder="Телефон"
+                                    @input="clearError"
+                                    required
+                            ></v-text-field>
 
                         </v-form>
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
+                        <v-spacer></v-spacer>
                         <v-btn
+                                large
                                 :disabled="!valid"
                                 color="success"
-                                @click="attemptLogin"
+                                class="mr-3"
+                                @click="attemptRegistration"
+                        >
+                            Зарегистрироваться
+                        </v-btn>
+                    </v-card-actions>
+                    <v-card-actions class="py-0">
+                        <p class="text-xs-left caption mx-2">Если Вы уже зарегистрированы, можете</p>
+                        <v-btn flat
+                               color="primary"
+                               @click="goLogin"
                         >
                             Войти
                         </v-btn>
+                        <v-spacer></v-spacer>
+                    </v-card-actions>
+                    <v-card-actions class="pt-0 pb-1">
+                        <p class="text-xs-left caption mx-2"> Если Вы забыли пароль, можете его</p>
+                        <v-btn flat
+                               color="warning"
+                               @click="passwordRequest"
+                        >
+                            Восстановить
+                        </v-btn>
+                        <v-spacer></v-spacer>
                     </v-card-actions>
                 </v-card>
             </v-flex>
@@ -75,14 +104,20 @@
                 server_error: '',
                 login: '',
                 show: false,
+                password: '',
+                phone: '',
                 loginRules: [
                     v => !!v || 'Введите Е-mail',
+                    v => /.+@.+/.test(v) || 'E-mail имеет неверный формат',
+                    v => v.length <= 255 || 'E-mail must be less than 255 characters'
                 ],
-                password: '',
                 passwordRules: [
-                    v => !!v || 'Введите пароль'
+                    v => !!v || 'Введите пароль',
+                    v => (v.length >= 6 && v.length <= 255) || 'Пароль должен быть не менее 6 символов'
                 ],
-                headerGradient: 'to bottom, #a90329, #0f0222 ',
+                phoneRules: [
+                    v => v.length == 12 || v.length == 0 || 'Неверный номер телефона'
+                ],
             }
         },
         computed:{
@@ -98,28 +133,34 @@
             ...mapActions('user', {
                 initUser: 'initUser'
             }),
-            attemptLogin() {
+            attemptRegistration() {
                 if (this.$refs.form.validate()) {
-                    this.snackbar = true;
                     axios({
                         method: 'post',
-                        url: '/api/login',
+                        url: '/api/registration',
                         responseType: 'json',
                         data: {
                             email: this.login,
                             password: this.password,
-                            rememberMe: this.remember_me
+                            phone: this.phone
                         }
                     }).then((response) => {
+                        console.log(response.data);
                         this.refreshCSRFToken(response.data.token);
                         if (response.data.result == 'success') {
                             this.initUser();
                             this.$router.push('/');
                         } else {
-                            this.server_error = response.data.messages.password;
+                            this.server_error = response.data.messages.email;
                         }
                     })
                 }
+            },
+            goLogin() {
+                this.$router.push('/login');
+            },
+            passwordRequest() {
+                this.$router.push('/password-request');
             },
 
             clearError() {
