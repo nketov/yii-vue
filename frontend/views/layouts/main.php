@@ -13,16 +13,18 @@ AppAsset::register($this);
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 <head>
-    <?php $siteContent = Content::findOne(1); ?>
+    <?php
+    $siteContent = Content::findOne(1); ?>
     <?= $this->render('_head.php', compact('siteContent')) ?>
     <?php $this->registerCsrfMetaTags() ?>
     <link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons' rel="stylesheet">
     <?php $this->head() ?>
 </head>
 <body>
+
 <?php $this->beginBody() ?>
 <?= $this->render('app.php', compact('siteContent')) ?>
-<?php $this->endBody() ?>
+<?php $this->endBody();?>
 </body>
 </html>
 <?php $this->endPage() ?>

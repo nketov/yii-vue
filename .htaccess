@@ -1,6 +1,7 @@
 AddDefaultCharset UTF-8
 
 Options +SymLinksIfOwnerMatch
+
 DirectoryIndex index.php index.html
 RewriteEngine on
 

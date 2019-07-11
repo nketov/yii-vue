@@ -1,7 +1,7 @@
 <template>
     <v-container fluid fill-height>
         <div v-if="user.id">
-            <h1>User was successfully logged in. Found user  {{user.email}}</h1>
+            <h1>Активный пользователь {{user.email}}</h1>
         </div>
         <v-layout align-center justify-center v-else>
             <v-flex xs12 sm8 md4>
@@ -41,7 +41,7 @@
                             ></v-text-field>
                         </v-form>
                     </v-card-text>
-                    <v-card-actions py-0>
+                    <v-card-actions class="py-1">
                         <v-spacer></v-spacer>
                         <v-checkbox
                                 v-model="remember_me"
@@ -58,7 +58,7 @@
                             Войти
                         </v-btn>
                     </v-card-actions>
-                    <v-card-actions>
+                    <v-card-actions class="py-1">
                         <p class="text-xs-left caption mx-2">Если Вы новый пользователь, то можете</p>
                         <v-btn flat
                                 color="primary"
@@ -68,11 +68,11 @@
                         </v-btn>
                         <v-spacer></v-spacer>
                     </v-card-actions>
-                    <v-card-actions>
+                    <v-card-actions class="pt-0 pb-1">
                         <p class="text-xs-left caption mx-2"> Если Вы забыли пароль, можете его</p>
                         <v-btn flat
                                 color="warning"
-                                @click="registration"
+                                @click="passwordRequest"
                         >
                             Восстановить
                         </v-btn>
@@ -103,7 +103,6 @@
                 passwordRules: [
                     v => !!v || 'Введите пароль'
                 ],
-                headerGradient: 'to bottom, #a90329, #0f0222 ',
             }
         },
         computed:{
@@ -121,7 +120,6 @@
             }),
             attemptLogin() {
                 if (this.$refs.form.validate()) {
-                    this.snackbar = true;
                     axios({
                         method: 'post',
                         url: '/api/login',
@@ -144,6 +142,9 @@
             },
             registration() {
                 this.$router.push('/registration');
+            },
+            passwordRequest() {
+                this.$router.push('/password-request');
             },
 
             clearError() {

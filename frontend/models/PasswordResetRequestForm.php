@@ -4,6 +4,7 @@ namespace frontend\models;
 use Yii;
 use yii\base\Model;
 use common\models\User;
+use yii\helpers\Url;
 
 /**
  * Password reset request form
@@ -21,11 +22,10 @@ class PasswordResetRequestForm extends Model
         return [
             ['email', 'trim'],
             ['email', 'required'],
-            ['email', 'email'],
             ['email', 'exist',
                 'targetClass' => '\common\models\User',
                 'filter' => ['status' => User::STATUS_ACTIVE],
-                'message' => 'There is no user with this email address.'
+                'message' => 'Пользователя с таким почтовым ящиком не существует'
             ],
         ];
     }
@@ -54,15 +54,23 @@ class PasswordResetRequestForm extends Model
             }
         }
 
-        return Yii::$app
-            ->mailer
-            ->compose(
-                ['html' => 'passwordResetToken-html', 'text' => 'passwordResetToken-text'],
-                ['user' => $user]
-            )
-            ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
-            ->setTo($this->email)
-            ->setSubject('Password reset for ' . Yii::$app->name)
-            ->send();
+        $url = Url::home(true);
+
+
+        $html ='<h3>Здравствуйте!</h3>'
+            . ' Вы отправили запрос на восстановление пароля для  почтового ящика : <b>' . $this->email . "</b><br>"
+            . ' Для того чтобы задать новый пароль, перейдите по ссылке ниже ' ."<br>"
+            . $url.'password-reset/'.$user->password_reset_token ;
+
+//
+//           return  Yii::$app->mailer->compose()
+//        ->setTo($this->email)
+//        ->setFrom(['mail@opora.dn.ua' => 'Opora'])
+//        ->setSubject('Восстановление пароля opora.dn.ua')
+//        ->setHtmlBody($html)
+//        ->send();
+
+        return mail($this->email, 'Восстановление пароля yii-vue ', $html) ;
+
     }
 }

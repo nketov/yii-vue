@@ -9,8 +9,9 @@
                         </v-toolbar-title>
                     </v-toolbar>
                     <v-card-text>
-                        <v-radio-group v-model="currentPageTransition" wrap>
+                        <v-radio-group :value="preferences.pageTransition"  wrap>
                                 <v-radio
+                                        @change="savePageTransition($event)"
                                         v-for="(item, index) in  pageTransitionList"
                                         :label="item"
                                         :value="index"
@@ -48,14 +49,14 @@
                                 <v-flex style="width: 250px" :class="{'px-2': $vuetify.breakpoint.smAndUp}" py-2>
                                     <v-label>Цвет фона:</v-label>
                                     <v-layout justify-space-around>
-                                        <chrome-picker v-model="currentCardHeaderColor"></chrome-picker>
+                                        <chrome-picker :value="{hex:preferences.cardHeaderColor}" @input="saveCardHeaderColor($event)"></chrome-picker>
                                     </v-layout>
                                 </v-flex>
 
                                 <v-flex style="width: 250px" :class="{'px-2': $vuetify.breakpoint.smAndUp}" py-2>
                                     <v-label>Цвет текста:</v-label>
                                     <v-layout justify-space-around>
-                                        <chrome-picker v-model="currentCardHeaderTextColor"></chrome-picker>
+                                        <chrome-picker :value="{hex:preferences.cardHeaderTextColor}" @input="saveCardHeaderTextColor($event)"></chrome-picker>
                                     </v-layout>
                                 </v-flex>
                             </v-layout>
@@ -91,31 +92,10 @@
                     'v-slide-y-reverse-transition': 'Слайд снизу',
 
                 },
-                currentCardHeaderColor: {},
-                currentPageTransition: "",
-                currentCardHeaderTextColor: {}
             }
         },
         components: {
             'chrome-picker': Chrome
-        },
-        beforeMount() {
-
-            this.currentPageTransition = this.preferences.pageTransition;
-            this.currentCardHeaderColor.hex = this.preferences.cardHeaderColor;
-            this.currentCardHeaderTextColor.hex = this.preferences.cardHeaderTextColor;
-        },
-        watch: {
-            currentPageTransition: function (val) {
-                this.preferences.pageTransition = val;
-            },
-            currentCardHeaderColor: function (val) {
-                this.preferences.cardHeaderColor = val.hex;
-            },
-            currentCardHeaderTextColor: function (val) {
-                this.preferences.cardHeaderTextColor = val.hex;
-            }
-
         },
         computed: {
             ...mapGetters('menu', {
@@ -123,10 +103,22 @@
             })
         },
         methods: {
-            test(val) {
-                console.log(val);
-            }
-        }
+            ...mapActions('menu', {
+                setPageTransition: 'setPageTransition',
+                setCardHeaderColor : 'setCardHeaderColor',
+                setCardHeaderTextColor : 'setCardHeaderTextColor',
+            }),
+            savePageTransition(val){
+                this.setPageTransition(val);
+            },
+            saveCardHeaderColor(val){
+                this.setCardHeaderColor(val.hex);
+            },
+            saveCardHeaderTextColor(val){
+                this.setCardHeaderTextColor(val.hex);
+            },
+        },
+
 
     }
 </script>

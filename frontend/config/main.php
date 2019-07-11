@@ -25,6 +25,9 @@ return [
             'csrfParam' => '_csrf-frontend',
             'baseUrl' => '',
             'cookieValidationKey' => 'sdi8s#fnj98jwiqiw;qfh!fjgh0d8f',
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ]
         ],
         'user' => [
             'identityClass' => 'common\models\User',
@@ -49,15 +52,19 @@ return [
         ],
         'urlManager' => [
             'enablePrettyUrl' => true,
+            'enableStrictParsing' => true,
             'showScriptName' => false,
 
             'rules' => [
+                ['class' => 'yii\rest\UrlRule',
+                    'controller' => 'project',
+                    'pluralize'=>false],
                 '' => '/',
                 '<controller:(about|login|my-page)>' => 'site/index',
                 '<controller:(\w|-)+>/' => '<controller>/index',
                 '<controller:\w+>/<action:(\w|-)+>/<id:\d+>' => '<controller>/<action>',
                 '<module:\w+>/<controller:\w+>/<action:(\w|-)+>' => '<module>/<controller>/<action>',
-                '<controller:\w+>/<action:(\w|-)+>' => '<controller>/<action>'
+                '<controller:\w+>/<action:(\w|-)+>' => '<controller>/<action>',
             ],
         ],
     ],

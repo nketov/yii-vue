@@ -56,7 +56,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             [['FIO'], 'string', 'max' => 150],
-            ['phone', 'string', 'length' => 9, 'message' => 'Неверный номер'],
+            ['phone', 'string', 'length' => 12, 'message' => 'Неверный номер'],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
         ];
@@ -72,7 +72,7 @@ class User extends ActiveRecord implements IdentityInterface
             'FIO' => 'Ф.И.О.'
         ];
     }
-    
+
 
     /**
      * {@inheritdoc}
@@ -95,7 +95,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return static::findOne(['email' => $email, 'status' => self::STATUS_ACTIVE]);
     }
-    
+
 
     /**
      * Finds user by password reset token

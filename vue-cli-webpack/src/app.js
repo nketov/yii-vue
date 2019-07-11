@@ -1,7 +1,6 @@
 import router from './routes.js';
 import {store} from './store';
 
-
 require('./bootstrap');
 
 import css from './css/site.css';
@@ -20,8 +19,9 @@ window.app = new Vue({
     data: {
         drawer: null,
     },
-    mounted() {
+    created() {
         store.dispatch('user/initUser');
+        store.dispatch('menu/initPreferences');
     },
     computed: {
         ...mapGetters('user', {
@@ -51,6 +51,9 @@ window.app = new Vue({
             } else {
                 return '';
             }
+        },
+        changeDark(){
+           store.dispatch('menu/changeDark')
         }
     }
 });

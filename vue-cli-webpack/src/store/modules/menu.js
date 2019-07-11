@@ -1,16 +1,34 @@
+function savePreferences(preferences) {
+    axios({
+        method: 'post',
+        url: '/api/save-preferences',
+        responseType: 'json',
+        data: {
+            preferences: preferences,
+        }
+    }).then((response) => {
+        //**//
+    }).catch(error => console.log(error));
+}
+
 export default {
     namespaced: true,
     state: {
         preferences: {
-            pageTransition: 'a-slide-x',
+            pageTransition: 'v-fade-transition',
             dark: true,
-            cardHeaderColor : '#364777',
-            cardHeaderTextColor : '#E9D61B',
+            cardHeaderColor: '#333',
+            cardHeaderTextColor: '#FFC',
         },
         items: [
             {
+                url: '/',
+                text: 'Главная',
+                icon: 'desktop_windows'
+            },
+            {
                 url: '/about',
-                text: 'О сайте',
+                text: 'О нас',
                 icon: 'info'
             },
             // {
@@ -28,10 +46,15 @@ export default {
                 text: 'Настройки',
                 icon: 'settings'
             },
+            // {
+            //     url: '/checkout',
+            //     text: 'Заказать',
+            //     icon: 'done_outline'
+            // },
             {
-                url: '/checkout',
-                text: 'Заказать',
-                icon: 'done_outline'
+                url: '/checkout1',
+                text: '404',
+                icon: 'bug_report'
             }
         ],
         footer: {
@@ -67,24 +90,50 @@ export default {
     },
     mutations: {
         setPageTransition(state, data) {
-            state.preferences.transition = data;
+            state.preferences.pageTransition = data;
+            savePreferences(state.preferences);
         },
         setCardHeaderColor(state, data) {
             state.preferences.cardHeaderColor = data;
+            savePreferences(state.preferences);
+        },
+        changeDark(state) {
+            state.preferences.dark = !state.preferences.dark;
+            savePreferences(state.preferences);
         },
         setCardHeaderTextColor(state, data) {
             state.preferences.cardHeaderTextColor = data;
-        }
+            savePreferences(state.preferences);
+        },
+        setPreferences(state, data) {
+            state.preferences = data;
+        },
     },
     actions: {
-        setPageTransition(state, data) {
-            store.commit(state, data);
+        setPageTransition(store, data) {
+           store.commit('setPageTransition', data);
         },
-        setCardHeaderColor(state, data) {
-            store.commit(state, data);
+        setCardHeaderColor(store, data) {
+            store.commit('setCardHeaderColor', data);
+
         },
-        setCardHeaderTextColor(state, data) {
-            store.commit(state, data);
+        setCardHeaderTextColor(store, data) {
+            store.commit('setCardHeaderTextColor', data);
+        },
+        changeDark(store) {
+            store.commit('changeDark');
+        },
+        initPreferences(store) {
+            axios({
+                method:'post',
+                url: '/api/load-preferences',
+                responseType: 'json'
+            }).then((response) => {
+
+                if(!response.data.empty)
+                store.commit('setPreferences', response.data);
+            }).catch(error => console.log(error));
         }
     }
 }
+

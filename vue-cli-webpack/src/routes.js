@@ -1,9 +1,12 @@
 import VueRouter from 'vue-router';
 
+import MainPage from './pages/MainPage.vue';
 import AboutPage from './pages/AboutPage.vue';
 import Preferences from './pages/Preferences.vue';
-import LoginPage from './pages/LoginPage.vue';
-import RegistrationPage from './pages/RegistrationPage.vue';
+import LoginPage from './pages/user/LoginPage.vue';
+import RegistrationPage from './pages/user/RegistrationPage.vue';
+import PasswordRequestPage from './pages/user/PasswordRequestPage.vue';
+import PasswordResetPage from './pages/user/PasswordResetPage.vue';
 import ProductsList from './pages/ProductsList';
 import Product from './pages/Product';
 import Cart from './pages/Cart';
@@ -14,7 +17,12 @@ import {store} from './store';
 let routes = [
     {
         path: '',
-        redirect: {name: 'about'}
+        redirect: {name: 'main'}
+    },
+    {
+        path: '/',
+        component: MainPage,
+        name: 'main'
     },
     {
         path: '/about',
@@ -30,6 +38,16 @@ let routes = [
         path: '/registration',
         component: RegistrationPage,
         name: 'registration',
+    },
+    {
+        path: '/password-request',
+        component: PasswordRequestPage,
+        name: 'password-request',
+    },
+    {
+        path: '/password-reset/:token',
+        component: PasswordResetPage,
+        name: 'password-reset',
     },
     {
         path: '/preferences',

@@ -15,6 +15,7 @@ class AppAsset extends AssetBundle
       //
     ];
     public $js = [
+        'https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js',
         'js/app.js'
     ];
     public $depends = [

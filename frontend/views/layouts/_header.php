@@ -103,7 +103,7 @@
     <v-btn icon @click="$router.go()">
         <v-icon>refresh</v-icon>
     </v-btn>
-    <v-btn icon @click="preferences.dark = !preferences.dark">
+    <v-btn icon @click="changeDark">
         <v-icon :color="preferences.dark ? 'white': 'black'">wb_sunny
         </v-icon>
     </v-btn>
