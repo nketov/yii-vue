@@ -136,7 +136,7 @@
     flex-direction: column;
     justify-content: center;
     width: 100vw;
-    height: 90vh;
+    height: 100vh;
     padding-bottom: -50px;
     margin-bottom: -50px;
 
@@ -144,57 +144,60 @@
 
 
 .itemapp {
-    display: flex;
-    width: 70%;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: repeat(6,1fr);
+    height: 100%;
     /*background: #fff;*/
     -webkit-box-shadow: 0 20px 60px 0 rgba(0, 0, 0, 0.27);
     -moz-box-shadow: 0 20px 60px 0 rgba(0, 0, 0, 0.27);
     box-shadow: 0 20px 60px 0 rgba(0, 0, 0, 0.27);
-    transform: translate(-10vw, -10vh);
+    /*transform: translate(-10vw, -10vh);*/
 }
 @media only screen and (max-width: 992px) {
     .itemapp {
         display: block;
     }
 }
-@media only screen and (min-width: 1600px) {
-    .itemapp {
-        width: 1300px;
-        transform: translate(-17vw, -10vh);
-    }
-}
+/*@media only screen and (min-width: 1600px) {*/
+    /*.itemapp {*/
+        /*width: 1300px;*/
+        /*transform: translate(-17vw, -10vh);*/
+    /*}*/
+/*}*/
 
 .partapp {
-    position: relative;
-    -webkit-flex: 1 0 0;
-    flex: 1 0 0;
-    height: 450px;
+    height: 100%;
     overflow: hidden;
+}
+/*@media only screen and (max-width: 1199px) {*/
+    /*.partapp {*/
+        /*height: 400px;*/
+    /*}*/
+/*}*/
+/*@media only screen and (min-width: 1600px) {*/
+    /*.partapp {*/
+        /*height: 700px;*/
 
-}
-@media only screen and (max-width: 1199px) {
-    .partapp {
-        height: 400px;
-    }
-}
-@media only screen and (min-width: 1600px) {
-    .partapp {
-        height: 700px;
-
-    }
-}
+    /*}*/
+/*}*/
 .partapp.image {
-    order: 2;
+    grid-row-end: span 6;
+    position: relative;
+    /*order: 2;*/
+    width: 100%;
+    height: 75vh;
     cursor: pointer;
-    z-index: 100;
+    /*z-index: 100;*/
 }
+
 .partapp.image .image-slideapp {
     position: absolute;
-    top: 0;
-    left: 0;
+    /* top: 0; */
+    /* left: 0; */
     display: block;
     width: 100%;
-    height: 100%;
+    height: 75vh;
     overflow: hidden;
     background-position: center center;
     background-repeat: no-repeat;
@@ -208,7 +211,7 @@
     max-width: 101%;
 }
 .partapp.text {
-    order: 1;
+    grid-row-end: span 5;
 }
 .partapp.text .innerapp {
     display: flex;
@@ -260,38 +263,43 @@
     -moz-box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.15);
     box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.15);
 }
-.partapp.text .innerapp .paginator1 {
-    position: absolute;
-    bottom: 20px;
-    left: 50px;
+
+.about-footer{
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.about-footer .paginator1 {
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
 }
-.partapp.text .innerapp .paginator1 svg {
+.about-footer .paginator1 svg {
     display: inline;
     width: 20px;
 }
-.partapp.text .innerapp .social {
-    position: absolute;
-    right: 30px;
-    bottom: 20px;
+
+
+.about-footer .social {
     font-size: 12px;
     color: #a0a0a0;
 }
-.partapp.text .innerapp .social ul {
+.about-footer .social ul {
     padding: 0;
     margin: 0;
     list-style: none;
 }
-.partapp.text .innerapp .social ul li {
+.about-footer .social ul li {
     display: inline-block;
     margin-left: 10px;
 }
-.partapp.text .innerapp .social ul li i {
+.about-footer .social ul li i {
     margin-right: 5px;
 }
-.partapp.text .innerapp .social ul li span {
+.about-footer .innerapp .social ul li span {
     display: inline-block;
     width: 15px;
 }
