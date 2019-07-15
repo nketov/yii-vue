@@ -3,7 +3,7 @@ import Vue from 'vue';
 export default {
     namespaced: true,
     state: {
-        user: []
+        user: window._user
     },
     getters: {
         user(state) {
@@ -12,9 +12,6 @@ export default {
 
     },
     mutations: {
-        clearUser(state) {
-            state.user = [];
-        },
         initUser(state, data) {
             state.user = data;
         }

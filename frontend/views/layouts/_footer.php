@@ -30,7 +30,7 @@
                         white--text
                         xs12
                 >
-                    &copy;<?= date('Y') ?> &nbsp;&nbsp; <strong>yii-vue</strong>
+                     &nbsp;&nbsp; <strong>Ukrdeveloper.pro</strong>&nbsp;&copy;&nbsp;<?= date('Y') ?>
                 </v-flex>
             </v-slide-y-reverse-transition>
             <v-slide-y-reverse-transition>

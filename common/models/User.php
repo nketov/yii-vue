@@ -208,9 +208,19 @@ class User extends ActiveRecord implements IdentityInterface
         $this->password_reset_token = null;
     }
 
-    public function getPhone($phone=null)
+//    public function getPhone($phone=null)
+//    {
+//        $string = $phone ?? $this->phone;
+//        return '+38 (0' . $string[0] . $string[1] . ') ' . $string[2] . $string[3] . $string[4] . ' ' . $string[5] . $string[6] . ' ' . $string[7] . $string[8];
+//    }
+
+    public function getUserInfo()
     {
-        $string = $phone ?? $this->phone;
-        return '+38 (0' . $string[0] . $string[1] . ') ' . $string[2] . $string[3] . $string[4] . ' ' . $string[5] . $string[6] . ' ' . $string[7] . $string[8];
+
+        return [
+            'id' => $this->id,
+            'email' => $this->email,
+            'avatar' => $this->avatar ?? ''
+        ];
     }
 }

@@ -7,6 +7,6 @@ use frontend\controllers\BaseRestController;
 
 class ProjectController extends BaseRestController
 {
-    public $modelClass = 'common\models\project';
+    public $modelClass = 'common\models\Project';
 
 }

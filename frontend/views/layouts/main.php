@@ -21,7 +21,7 @@ AppAsset::register($this);
     <?php $this->head() ?>
 </head>
 <body>
-
+<?= $this->render('_init_script.php') ?>
 <?php $this->beginBody() ?>
 <?= $this->render('app.php', compact('siteContent')) ?>
 <?php $this->endBody();?>

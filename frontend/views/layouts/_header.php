@@ -78,7 +78,7 @@
         <v-menu :nudge-width="100">
             <template v-slot:activator="{ on }">
                 <v-toolbar-title v-on="on">
-                    <span>yii-vue</span>
+                    <span>Ukrdeveloper.pro</span>
                     <v-icon dark>arrow_drop_down</v-icon>
                 </v-toolbar-title>
             </template>

@@ -111,14 +111,14 @@ class ApiController extends Controller
         try {
             $model = new ResetPasswordForm($raw_data['token']);
         } catch (Exception $e) {
-            return ['result' => 'error', 'messages' => $e->getMessage()];
+            return ['result' => 'error1', 'messages' => $e->getMessage()];
 
         }
         $model->load($raw_data, '');
         if ($model->validate() && $model->resetPassword()) {
             return ['result' => 'success'];
         } else {
-            return ['result' => 'error', 'messages' => $model->getFirstErrors()];
+            return ['result' => 'error2', 'messages' => $model->getFirstErrors()];
         }
 
     }
@@ -128,11 +128,7 @@ class ApiController extends Controller
     {
         $user = [];
         if (!Yii::$app->user->isGuest) {
-            $user = [
-                'id' => Yii::$app->user->identity->id,
-                'email' => Yii::$app->user->identity->email,
-                'avatar' => Yii::$app->user->identity->avatar ?? ''
-            ];
+            $user = Yii::$app->user->identity->getUserInfo();
         }
         return $user;
     }
@@ -150,11 +146,7 @@ class ApiController extends Controller
 
     public  function actionLoadPreferences()
     {
-        $preferences = ['empty'=>1];
-        if(isset($_COOKIE['preferences'])) {
-            $preferences = unserialize($_COOKIE['preferences'], ["allowed_classes" => false]);
-        }
-        return $preferences;
+
     }
 
 

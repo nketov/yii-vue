@@ -20,8 +20,8 @@ window.app = new Vue({
         drawer: null,
     },
     created() {
-        store.dispatch('user/initUser');
-        store.dispatch('menu/initPreferences');
+        // store.dispatch('user/initUser');
+    //     store.dispatch('menu/initPreferences');
     },
     computed: {
         ...mapGetters('user', {

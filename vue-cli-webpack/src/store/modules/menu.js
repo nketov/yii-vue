@@ -11,15 +11,17 @@ function savePreferences(preferences) {
     }).catch(error => console.log(error));
 }
 
+// let _preferences={
+//     pageTransition: 'v-fade-transition',
+//     dark: true,
+//     cardHeaderColor: '#333',
+//     cardHeaderTextColor: '#FFF',
+// };
+
 export default {
     namespaced: true,
     state: {
-        preferences: {
-            pageTransition: 'v-fade-transition',
-            dark: true,
-            cardHeaderColor: '#333',
-            cardHeaderTextColor: '#FFC',
-        },
+        preferences: window._preferences,
         items: [
             {
                 url: '/',
@@ -123,17 +125,9 @@ export default {
         changeDark(store) {
             store.commit('changeDark');
         },
-        initPreferences(store) {
-            axios({
-                method:'post',
-                url: '/api/load-preferences',
-                responseType: 'json'
-            }).then((response) => {
 
-                if(!response.data.empty)
-                store.commit('setPreferences', response.data);
-            }).catch(error => console.log(error));
-        }
     }
 }
+
+
 

@@ -7,7 +7,7 @@ $params = array_merge(
 );
 
 return [
-    'id' => 'yii-vue',
+    'id' => 'Ukrdeveloper.pro',
     'basePath' => dirname(__DIR__),
     'language' => 'ru-RU',
     'bootstrap' => [
