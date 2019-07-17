@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
+use yii\web\UploadedFile;
 use Yii;
 use yii\web\Controller;
 use yii\web\Response;
@@ -29,7 +30,7 @@ class ApiController extends Controller
                     'password-reset' => ['post'],
                     'current-user-info' => ['post'],
                     'save-preferences' => ['post'],
-                    'load-preferences' => ['post'],
+                    'save-avatar' => ['post'],
                 ],
             ],
         ];
@@ -144,9 +145,12 @@ class ApiController extends Controller
     }
 
 
-    public  function actionLoadPreferences()
+    public  function actionSaveAvatar()
     {
-
+        $user = Yii::$app->user->identity;
+        $user->image = UploadedFile::getInstanceByName('image');
+        $user->upload();
+        return ['avatar' => $user->avatar.'?rnd='. time()];
     }
 
 

@@ -2,63 +2,58 @@
     <v-container fluid fill-height>
         <v-layout align-start justify-center wrap>
             <v-flex xs12>
-            <!--<div class="containerabout">-->
-            <div class="itemapp">
-                <div class="partapp text">
-                    <h2 style="text-align: left; padding: 10px">
-                        Наши проекты
-                    </h2>
-                    <text-slide>
-                        <div class="innerapp" :key="activeSlide">
-                            <div class="centered">
-                                <h1>{{ activeItem.title }}</h1>
-                                <h3 :style="descriptionColor">{{ activeItem.description }}</h3>
-                                <h6>{{ activeItem.creditTitle }}</h6>
-                                <h5><a :href="activeItem.credit">{{ activeItem.credit }}</a></h5>
-                                <button :style="buttonColor" @click="nextSlide"><i class="fa fa-play"></i></button>
+                <div class="itemapp" v-if="slides[0]">
+                    <div class="partapp text">
+                        <h2 style="text-align: left; padding: 10px">
+                            Наши проекты
+                        </h2>
+                        <text-slide>
+                            <div class="innerapp" :key="activeSlide">
+                                <div class="centered">
+                                    <h1>{{ activeItem.title }}</h1>
+                                    <h3 :style="descriptionColor">{{ activeItem.description }}</h3>
+                                    <h6>Смотреть по прямой ссылке</h6>
+                                    <h5><a :href="activeItem.link">{{ activeItem.link }}</a></h5>
+                                    <button :style="buttonColor" @click="nextSlide"><i class="fa fa-play"></i></button>
+                                </div>
                             </div>
-                        </div>
-                    </text-slide>
-                </div>
-                <div class="partapp image" @click="nextSlide">
-                    <image-slide>
-                        <div class="image-slideapp" :style="slideImageapp" :key="activeSlide"></div>
-                    </image-slide>
-                </div>
-                <div class="about-footer">
-                    <div class="paginator1" @click="nextSlide">
-                        {{ activeSlide+1 }} из {{ slides.length }}
-                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                             version="1.1" viewBox="0 0 28 10">
-                            <g>
-                                <g transform="translate(1147 -1004)">
-                                    <use fill="#303030" transform="translate(-1147 1004)"
-                                         xlink:href="#path0_fill"/>
+                        </text-slide>
+                    </div>
+                    <div class="partapp image" @click="nextSlide">
+                        <image-slide>
+                            <div class="image-slideapp" :style="slideImageapp" :key="activeSlide"></div>
+                        </image-slide>
+                    </div>
+                    <div class="about-footer">
+                        <div class="paginator1" @click="nextSlide">
+                            {{ activeSlide+1 }} из {{ slides.length }}
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                 version="1.1" viewBox="0 0 28 10">
+                                <g>
+                                    <g transform="translate(1147 -1004)">
+                                        <use fill="#303030" transform="translate(-1147 1004)"
+                                             xlink:href="#path0_fill"/>
+                                    </g>
                                 </g>
-                            </g>
-                            <defs>
-                                <path id="path0_fill"
-                                      d="M27.9 4.309l-2.5-4.1c-.1-.2-.4-.3-.6-.1-.2.1-.3.4-.2.6l2 3.4H.5c-.3-.1-.5.1-.5.4 0 .2.2.5.5.5h26.1l-2.1 3.4c-.1.2-.1.5.2.6h.3c.2 0 .3-.1.4-.2l2.5-4.1c.1-.1.1-.3 0-.4z"/>
-                            </defs>
-                        </svg>
+                                <defs>
+                                    <path id="path0_fill"
+                                          d="M27.9 4.309l-2.5-4.1c-.1-.2-.4-.3-.6-.1-.2.1-.3.4-.2.6l2 3.4H.5c-.3-.1-.5.1-.5.4 0 .2.2.5.5.5h26.1l-2.1 3.4c-.1.2-.1.5.2.6h.3c.2 0 .3-.1.4-.2l2.5-4.1c.1-.1.1-.3 0-.4z"/>
+                                </defs>
+                            </svg>
+                        </div>
+                        <!--<div class="social">-->
+                        <!--<ul>-->
+                        <!--<li><i class="fa fa-heart-o"></i><span :data-like="activeItem.social.like">{{ activeItem.social.like }}</span>-->
+                        <!--</li>-->
+                        <!--<li><i class="fa fa-eye"></i><span :data-visit="activeItem.social.visit">{{ activeItem.social.visit }}</span>-->
+                        <!--</li>-->
+                        <!--<li><i class="fa fa-comment-o"></i><span-->
+                        <!--:data-comment="activeItem.social.comment">{{ activeItem.social.comment }}</span>-->
+                        <!--</li>-->
+                        <!--</ul>-->
+                        <!--</div>-->
                     </div>
-                    <div class="social">
-                        <ul>
-                            <li><i class="fa fa-heart-o"></i><span :data-like="activeItem.social.like">{{ activeItem.social.like }}</span>
-                            </li>
-                            <li><i class="fa fa-eye"></i><span :data-visit="activeItem.social.visit">{{ activeItem.social.visit }}</span>
-                            </li>
-                            <li><i class="fa fa-comment-o"></i><span
-                                    :data-comment="activeItem.social.comment">{{ activeItem.social.comment }}</span>
-                            </li>
-                        </ul>
-                    </div>
-
                 </div>
-
-            </div>
-
-            <!--</div>-->
             </v-flex>
         </v-layout>
     </v-container>
@@ -68,118 +63,49 @@
 
     import ImageSlide from '../components/ImageSlide';
     import TextSlide from '../components/TextSlide';
+    import {mapGetters} from 'vuex';
 
     export default {
         data: function data() {
             return {
                 activeSlide: 0,
-                slides: [
-                    {
-                        title: 'Online-агрегатор поиска и подбора электронных страховок',
-                        description: 'Теперь Вам больше не нужно тратить ваше драгоценное время на поездки в офисы страховых компаний или переплачивать посредникам и страховым агентам.  Мы это сделали за вас. Просто введите нужные вам параметры страховки, распечатайте полис и получайте удовольствие.',
-                        creditTitle: 'Смотреть по прямой ссылке',
-                        credit: 'http://epolis.shop',
-                        image: '/images/projects/epolis.jpg',
-                        color: '#009688',
-                        social: {
-                            like: 200,
-                            visit: 1524,
-                            comment: 150
-                        }
-                    },
-                    {
-                        title: 'Онлайн магазин автозапчастей',
-                        description: 'Найдите необходимую деталь и все ее аналоги, учавствуйте в акциях и специальных предложениях, отслеживайте заказы и предложения из личного кабинета',
-                        creditTitle: 'Смотреть по прямой ссылке',
-                        credit: 'http://opora.dn.ua',
-                        image: '/images/projects/opora.jpg',
-                        color: '#E337B9',
-                        social: {
-                            like: 156,
-                            visit: 419,
-                            comment: 34
-                        }
-                    },
-
-                    {
-                        title: 'Покупка приватных высокоскоростных прокси HTTP(s) и Socks5',
-                        description: 'YouProxy.ru предоставляет качественный сервис и вы больше никогда не задумаетесь над вопросом: где купить прокси? Приятной анонимной работы в сети!',
-                        creditTitle: 'Смотреть по прямой ссылке',
-                        credit: 'https://youproxy.ru/',
-                        image: '/images/projects/youproxy.png',
-                        color: '#ff4254',
-                        social: {
-                            like: 150,
-                            visit: 572,
-                            comment: 35
-                        }
-                    },
-                    {
-                        title: 'Онлайн магазин светотехнического оборудования',
-                        description: 'Покупайте именно ваш источник света для дома из 15000 предложенных',
-                        creditTitle: 'Смотреть по прямой ссылке',
-                        credit: 'http://svitlograd.in.ua',
-                        image: '/images/projects/svitlograd.jpg',
-                        color: '#FFC107',
-                        social: {
-                            like: 56,
-                            visit: 119,
-                            comment: 21
-                        }
-                    },
-
-                    {
-                        title: 'Онлайн магазин автозапчастей',
-                        description: 'Найдите необходимую деталь и все ее аналоги, учавствуйте в акциях и специальных предложениях, отслеживайте заказы и предложения из личного кабинета',
-                        creditTitle: 'Смотреть по прямой ссылке',
-                        credit: 'http://lion-auto.com.ua',
-                        image: '/images/projects/lion.jpg',
-                        color: '#777',
-                        social: {
-                            like: 156,
-                            visit: 419,
-                            comment: 34
-                        }
-                    },
-                    {
-                        title: 'Биржа онлайн-игроков',
-                        description: 'Покупайте и продавайте аккаунты, героев, игровую валюту, артефакты и прочее... Зачисление средств на аккаунт',
-                        creditTitle: 'Смотреть по прямой ссылке',
-                        credit: '/',
-                        image: '/images/projects/zergo.jpg',
-                        color: '#558B2F',
-                        social: {
-                            like: 88,
-                            visit: 254,
-                            comment: 7
-                        }
-                    }
-                ]
             };
         },
+
         computed: {
-            slideImageapp: function slideImageapp() {
-                console.log(this.activeSlide);
+            ...mapGetters('projects', {
+                projects: 'projects'
+            }),
+            ...mapGetters('user', {
+                user: 'user'
+            }),
+
+            slides: function slides() {
+                return this.projects;
+            },
+
+            slideImageapp() {
                 return {
-                    backgroundImage: 'url("' + this.slides[this.activeSlide].image + '")'
+                    backgroundImage: 'url("/images/projects/' + this.slides[this.activeSlide].image + '")'
                 };
             },
-            activeItem: function activeItem() {
+            activeItem() {
                 return this.slides[this.activeSlide];
+
             },
-            buttonColor: function buttonColor() {
+            buttonColor() {
                 return {
                     backgroundColor: this.slides[this.activeSlide].color
                 };
             },
-            descriptionColor: function descriptionColor() {
+            descriptionColor() {
                 return {
                     color: this.slides[this.activeSlide].color
                 };
             }
         },
         methods: {
-            nextSlide: function nextSlide() {
+            nextSlide() {
                 if (this.activeSlide >= this.slides.length - 1) {
                     this.activeSlide = 0;
                 } else {

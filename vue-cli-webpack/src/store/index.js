@@ -8,6 +8,7 @@ import user from './modules/user';
 import menu from './modules/menu';
 import products from './modules/products';
 import cart from './modules/cart';
+import projects from './modules/projects';
 
 
 export const store = new Vuex.Store({
@@ -15,7 +16,8 @@ export const store = new Vuex.Store({
 		user,
 		menu,
 		products,
-		cart
+		cart,
+		projects
 	},
 	strict: process.env.NODE_ENV !== 'production'
 });

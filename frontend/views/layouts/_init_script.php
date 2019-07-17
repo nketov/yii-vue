@@ -25,4 +25,9 @@ if (isset($_COOKIE['preferences'])) {
     }
     window._preferences = _preferences;
 </script>
+<style>
+    body{
+        opacity: 0;
+    }
+</style>
 

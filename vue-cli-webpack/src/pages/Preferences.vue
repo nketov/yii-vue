@@ -1,6 +1,25 @@
 <template>
     <v-container fluid fill-height>
         <v-layout align-start justify-center wrap>
+            <v-flex sm12 md6 xl4 :class="{'px-3': $vuetify.breakpoint.smAndUp}" py-2 v-if="user.id">
+                <v-card class="elevation-12">
+                    <v-toolbar :color="preferences.cardHeaderColor">
+                        <v-toolbar-title><h4 :style="{color: preferences.cardHeaderTextColor}">Мой аватар</h4>
+                        </v-toolbar-title>
+                    </v-toolbar>
+                    <v-card-text>
+                        <img :src="imageUrl" height="150" v-if="imageUrl"/>
+                        <v-text-field label="Выберите изображение" @click='pickFile' v-model='imageName' prepend-icon='attach_file'></v-text-field>
+                        <input
+                                type="file"
+                                style="display: none"
+                                ref="image"
+                                accept="image/*"
+                                @change="onFilePicked"
+                        >
+                    </v-card-text>
+                </v-card>
+            </v-flex>
             <v-flex sm12 md6 xl4 :class="{'px-3': $vuetify.breakpoint.smAndUp}" py-2 m-1>
                 <v-card class="elevation-12">
                     <v-toolbar :color="preferences.cardHeaderColor">
@@ -20,22 +39,6 @@
                     </v-card-text>
                 </v-card>
             </v-flex>
-            <!--<v-flex sm12 md6 xl4 :class="{'px-3': $vuetify.breakpoint.smAndUp}" py-2>-->
-            <!--<v-card class="elevation-12">-->
-            <!--<v-toolbar :color="preferences.cardHeaderColor">-->
-            <!--<v-toolbar-title><h4 :style="{color: preferences.cardHeaderTextColor}">Мой аватар</h4></v-toolbar-title>-->
-            <!--</v-toolbar>-->
-            <!--<v-card-text>-->
-            <!--<v-radio-group v-model="currentPageTransition">-->
-            <!--<v-radio-->
-            <!--v-for="(item, index) in  pageTransitionList"-->
-            <!--:label="item"-->
-            <!--:value="index"-->
-            <!--&gt;</v-radio>-->
-            <!--</v-radio-group>-->
-            <!--</v-card-text>-->
-            <!--</v-card>-->
-            <!--</v-flex>-->
             <v-flex sm12 md6 xl4 :class="{'px-3': $vuetify.breakpoint.smAndUp}" py-2>
                 <v-card class="elevation-12">
                     <v-toolbar :color="preferences.cardHeaderColor">
@@ -92,21 +95,33 @@
                     'v-slide-y-reverse-transition': 'Слайд снизу',
 
                 },
+                imageName: '',
+                imageUrl: '',
+                imageFile: ''
             }
+        },
+        mounted (){
+            this.imageUrl= '/images/avatars/' + this.user.avatar;
         },
         components: {
             'chrome-picker': Chrome
         },
         computed: {
             ...mapGetters('menu', {
-                preferences: 'preferences'
+                preferences : 'preferences'
+            }),
+            ...mapGetters('user', {
+                user: 'user'
             })
         },
         methods: {
             ...mapActions('menu', {
                 setPageTransition: 'setPageTransition',
-                setCardHeaderColor : 'setCardHeaderColor',
-                setCardHeaderTextColor : 'setCardHeaderTextColor',
+                setCardHeaderColor:'setCardHeaderColor',
+                setCardHeaderTextColor : 'setCardHeaderTextColor'
+            }),
+            ...mapActions('user', {
+                saveAvatar : 'saveAvatar'
             }),
             savePageTransition(val){
                 this.setPageTransition(val);
@@ -117,6 +132,30 @@
             saveCardHeaderTextColor(val){
                 this.setCardHeaderTextColor(val.hex);
             },
+            pickFile () {
+                this.$refs.image.click ()
+            },
+
+            onFilePicked (e) {
+                const files = e.target.files;
+                if(files[0] !== undefined) {
+                    this.imageName = files[0].name;
+                    if(this.imageName.lastIndexOf('.') <= 0) {
+                        return
+                    }
+                    const fr = new FileReader ();
+                    fr.readAsDataURL(files[0]);
+                    fr.addEventListener('load', () => {
+                        this.imageUrl = fr.result;
+                        this.imageFile = files[0];
+                        this.saveAvatar(files[0]);
+                    })
+                } else {
+                    this.imageName = '';
+                    this.imageFile = '';
+                    this.imageUrl = '';
+                }
+            }
         },
 
 

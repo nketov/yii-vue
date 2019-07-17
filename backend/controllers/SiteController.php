@@ -6,6 +6,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
+use common\models\Content;
 
 /**
  * Site controller
@@ -26,7 +27,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index'],
+                        'actions' => ['logout', 'content'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -63,6 +64,20 @@ class SiteController extends Controller
         return $this->render('index');
     }
 
+
+    public function actionContent()
+    {
+
+        $model = Content::findOne(1);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->render('success', ['message' => '<div class="box"><div class="box-body" style="color: green">Данные успешно сохранены!</div></div>',
+                'title' => 'Содержание сайта']);
+        } else {
+            return $this->render('content', compact(['model']));
+        }
+    }
+
     /**
      * Login action.
      *
@@ -75,7 +90,7 @@ class SiteController extends Controller
         }
 
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+        if ($model->load(Yii::$app->request->post()) && $model->email == 'admin' && $model->login()) {
             return $this->goBack();
         } else {
             $model->password = '';

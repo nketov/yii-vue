@@ -27,7 +27,12 @@ let routes = [
     {
         path: '/about',
         component: AboutPage,
-        name: 'about'
+        name: 'about',
+        beforeEnter(from, to, next) {
+            store.dispatch('projects/loadProjects');
+            next();
+        }
+
     },
     {
         path: '/login',

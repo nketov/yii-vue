@@ -43,18 +43,18 @@ return [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-//            'rules' => [
-//                '<action:(content|login|upload|pages-content)>' => 'site/<action>'
-//            ],
+            'rules' => [
+                '<action:(content|login)>' => 'site/<action>'
+            ],
         ],
-//        'assetManager' => [
-//            'bundles' => [
-//                'dmstr\web\AdminLteAsset' => [
-//                    'skin' => 'skin-black',
-//                ],
-//            ],
-//            'appendTimestamp' => true
-//        ],
+        'assetManager' => [
+            'bundles' => [
+                'dmstr\web\AdminLteAsset' => [
+                    'skin' => 'skin-black',
+                ],
+            ],
+            'appendTimestamp' => true
+        ],
     ],
     'params' => $params,
 ];

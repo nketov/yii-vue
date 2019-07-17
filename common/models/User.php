@@ -1,4 +1,5 @@
 <?php
+
 namespace common\models;
 
 use Yii;
@@ -6,6 +7,7 @@ use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 use yii\web\IdentityInterface;
 
 /**
@@ -28,6 +30,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     public $actions = [];
     public $car = [];
+    public $image;
 
 
     /**
@@ -56,9 +59,10 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             [['FIO'], 'string', 'max' => 150],
-            ['phone', 'string', 'length' => 12, 'message' => 'Неверный номер'],
+            ['phone', 'string'],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+            [['image'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg, gif', 'checkExtensionByMimeType' => false]
         ];
     }
 
@@ -127,7 +131,7 @@ class User extends ActiveRecord implements IdentityInterface
             return false;
         }
 
-        $timestamp = (int) substr($token, strrpos($token, '_') + 1);
+        $timestamp = (int)substr($token, strrpos($token, '_') + 1);
         $expire = Yii::$app->params['user.passwordResetTokenExpire'];
         return $timestamp + $expire >= time();
     }
@@ -135,7 +139,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     public static function getUsersEmailsArray()
     {
-        return ArrayHelper::map(self::find()->where(['!=','email','admin'])->all(),'id','email');
+        return ArrayHelper::map(self::find()->where(['!=', 'email', 'admin'])->all(), 'id', 'email');
     }
 
 
@@ -222,5 +226,21 @@ class User extends ActiveRecord implements IdentityInterface
             'email' => $this->email,
             'avatar' => $this->avatar ?? ''
         ];
+    }
+
+
+    public function upload()
+    {
+        if ($this->validate()) {
+            if ($this->image) {
+                $this->avatar = 'user_' . $this->id . '.' . $this->image->extension;
+                $this->image->saveAs(Url::to('@frontend/web/images/avatars/') . $this->avatar);
+                $this->save();
+            }
+            return true;
+        } else {
+            return false;
+        }
+
     }
 }

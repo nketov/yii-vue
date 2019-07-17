@@ -1,6 +1,7 @@
 <v-footer app
           height="auto"
           padless
+          class="hidden-sm-and-down"
 >
     <v-hover>
         <v-layout @

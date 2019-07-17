@@ -2,7 +2,10 @@
 
 namespace common\models;
 
+use yii\web\UploadedFile;
 use Yii;
+use yii\helpers\Url;
+
 
 /**
  * This is the model class for table "project".
@@ -16,6 +19,8 @@ use Yii;
  */
 class Project extends \yii\db\ActiveRecord
 {
+
+    public $_image;
     /**
      * {@inheritdoc}
      */
@@ -30,8 +35,8 @@ class Project extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['short_name', 'title', 'description', 'link'], 'required'],
-            [['description'], 'string'],
+            [['short_name', 'title', 'description', 'link','color'], 'required'],
+            [['description','color'], 'string'],
             [['short_name'], 'string', 'max' => 50],
             [['title', 'link'], 'string', 'max' => 150],
             [['image'], 'string', 'max' => 100],
@@ -46,10 +51,29 @@ class Project extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'short_name' => 'Short Name',
-            'title' => 'Title',
-            'description' => 'Description',
-            'link' => 'Link',
-            'image' => 'Image',
+            'title' => 'Заголовок',
+            'description' => 'Описание',
+            'link' => 'Ссылка',
+            'color' => 'Цвет',
+            'image' => 'Рисунок',
         ];
     }
+
+    public function upload()
+    {
+
+        if ($this->validate()) {
+            $this->_image = UploadedFile::getInstance($this, '_image');
+            if($this->_image) {
+                $this->image =  $this->short_name . '.' . $this->_image->extension;
+                $this->_image->saveAs(Url::to('@frontend/web/images/projects/') . $this->image);
+            }
+            $this->save();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
 }
