@@ -34,6 +34,7 @@
                                         v-for="(item, index) in  pageTransitionList"
                                         :label="item"
                                         :value="index"
+                                        :key="index"
                                 ></v-radio>
                         </v-radio-group>
                     </v-card-text>
@@ -161,3 +162,4 @@
 
     }
 </script>
+
